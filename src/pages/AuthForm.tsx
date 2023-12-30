@@ -7,7 +7,7 @@ type AuthFormProps = {
 
 const AuthForm = ({ handleSubmit, children: inputs }: AuthFormProps) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       {inputs}
       <button type="submit">Submit</button>
     </form>
