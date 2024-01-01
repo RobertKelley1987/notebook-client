@@ -1,5 +1,6 @@
 import React from "react";
-import MoreSVG from "../svgs/MoreSVG.tsx";
+import { useParams } from "react-router-dom";
+import NoteOptions from "./HomePage/NoteOptions.tsx";
 
 type NoteFormProps = {
   titleRef: React.RefObject<HTMLInputElement>;
@@ -14,26 +15,27 @@ const NoteForm = ({
   handleKeyDown,
   handleClick,
 }: NoteFormProps) => {
+  const { noteId } = useParams();
+
   return (
     <div className="w-[300px] border bg-white border-gray-800 h-min p-3 rounded-lg flex flex-col items-center gap-4">
       <div className="flex flex-col w-full gap-2">
         <input
           className="text-gray-800 w-full font-bold focus:outline-none placeholder:text-gray-400"
           ref={titleRef}
-          placeholder="A New Note"
+          placeholder="TITLE"
           onKeyDown={handleKeyDown}
         />
         <div
-          className="focus:outline-none text-gray-800"
+          className="focus:outline-none text-gray-800 cursor-text"
           ref={contentRef}
           contentEditable
-          data-placeholder="Your journey begins here..."
+          data-placeholder="a new note..."
           onKeyDown={handleKeyDown}
         ></div>
-        <div className="flex justify-between">
-          <MoreSVG className="stroke-gray-800 rotate-90" />
+        <NoteOptions noteId={noteId}>
           <button onClick={handleClick}>Close</button>
-        </div>
+        </NoteOptions>
       </div>
     </div>
   );

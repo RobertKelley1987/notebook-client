@@ -34,3 +34,8 @@ export const updateNote = async (
   });
   return data;
 };
+
+export const deleteNote = async (noteId: string) => {
+  const { data } = await api.delete(`/notes/${noteId}`);
+  return data;
+};

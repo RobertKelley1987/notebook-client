@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { UserIdContext } from "./context/UserId.tsx";
 import { signUp, signIn, getSession } from "./services/users.tsx";
 import { NotesContext } from "./context/Notes.tsx";
@@ -20,7 +14,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
-  const navigate = useNavigate();
 
   // Track background location for modal routes
   const location = useLocation();
@@ -39,7 +32,7 @@ function App() {
 
   const renderApp = () => {
     return (
-      <div className="flex flex-col w-full min-h-screen">
+      <div className="flex flex-col w-full min-h-screen overflow-x-hidden">
         <UserIdContext.Provider value={{ userId, setUserId }}>
           <NotesContext.Provider value={{ notes, setNotes }}>
             <Header />

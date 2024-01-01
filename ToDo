@@ -2,3 +2,5 @@
 - make sure font sizes are in check
 - searchbar
 - New note form error handling
+- Still haven't figured out how to prevent glitchiness when dropdown calculates whether or not it need to be
+  adjusted left.

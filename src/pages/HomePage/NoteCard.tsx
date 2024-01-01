@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import MoreSVG from "../../svgs/MoreSVG.tsx";
+import NoteOptions from "./NoteOptions.tsx";
 import { Note } from "../../types.tsx";
 
 type NoteProps = {
@@ -27,9 +27,7 @@ const NoteCard = ({ note }: NoteProps) => {
           </div>
         </article>
       </Link>
-      <div className="flex justify-end">
-        <MoreSVG className="stroke-gray-800 rotate-90" />
-      </div>
+      <NoteOptions noteId={note.id} />
     </div>
   );
 };
