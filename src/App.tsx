@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { UserIdContext } from "./context/UserId.tsx";
 import { signUp, signIn, getSession } from "./services/users.tsx";
+import { NotesContext } from "./context/Notes.tsx";
 import Header from "./components/Header.tsx";
 import AuthPage from "./pages/AuthPage.tsx";
 import HomePage from "./pages/HomePage/index.tsx";
 import NewNotePage from "./pages/NewNoteForm.tsx";
-import { NotesContext } from "./context/Notes.tsx";
+import EditNotePage from "./pages/EditNotePage.tsx";
 import { Note } from "./types.tsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
+  const navigate = useNavigate();
+
+  // Track background location for modal routes
+  const location = useLocation();
+  const backgroundLocation = location.state?.backgroundLocation;
 
   useEffect(() => {
     const checkForSession = async () => {
@@ -31,7 +43,7 @@ function App() {
         <UserIdContext.Provider value={{ userId, setUserId }}>
           <NotesContext.Provider value={{ notes, setNotes }}>
             <Header />
-            <Routes>
+            <Routes location={backgroundLocation || location}>
               <Route
                 path="/"
                 element={
@@ -44,7 +56,6 @@ function App() {
               />
               <Route path="/notes" element={<HomePage />}>
                 <Route path="new" element={<NewNotePage />} />
-                <Route path=":noteId/edit" element={<NewNotePage />} />
               </Route>
               <Route
                 path="/signup"
@@ -64,6 +75,12 @@ function App() {
                 }
               />
             </Routes>
+
+            {backgroundLocation && (
+              <Routes>
+                <Route path="/notes/:noteId/edit" element={<EditNotePage />} />
+              </Routes>
+            )}
           </NotesContext.Provider>
         </UserIdContext.Provider>
       </div>

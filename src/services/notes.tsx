@@ -1,39 +1,34 @@
 import { api } from "./api.tsx";
 
-export const getNotes = async (userId: string) => {
-  const { data } = await api.get(`/users/${userId}/notes`);
+export const getNotes = async () => {
+  const { data } = await api.get(`/notes`);
   return data;
 };
 
-export const findNote = async (userId: string, noteId: string) => {
-  const { data } = await api.get(`/users/${userId}/notes/${noteId}`);
+export const findNote = async (noteId: string) => {
+  const { data } = await api.get(`/notes/${noteId}`);
   return data;
 };
 
-export const createNote = async (
-  userId: string = "",
-  title: string = "",
-  content: string = ""
-) => {
-  if (!userId || (!title && !content)) {
+export const createNote = async (title: string = "", content: string = "") => {
+  if (!title && !content) {
     return;
   }
 
-  const { data } = await api.post(`/users/${userId}/notes`, { title, content });
+  const { data } = await api.post(`/notes`, { title, content });
   return data;
 };
 
 export const updateNote = async (
-  userId: string = "",
   noteId: string = "",
   title: string = "",
   content: string = ""
 ) => {
-  if (!userId || !noteId || (!title && !content)) {
+  if (!noteId || (!title && !content)) {
     return;
   }
 
-  const { data } = await api.put(`/users/${userId}/notes/${noteId}`, {
+  const { data } = await api.put(`/notes/${noteId}`, {
     title,
     content,
   });
